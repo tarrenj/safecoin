@@ -245,10 +245,10 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop Komodo server.");
+            "\nStop Safecoin server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Komodo server stopping";
+    return "Safecoin server stopping";
 }
 
 /**

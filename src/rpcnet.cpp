@@ -164,7 +164,7 @@ UniValue getpeerinfo(const UniValue& params, bool fHelp)
     return ret;
 }
 
-int32_t komodo_longestchain()
+int32_t safecoin_longestchain()
 {
     int32_t ht,n=0,num=0,maxheight=0,height = 0;
     LOCK(cs_main);

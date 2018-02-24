@@ -309,7 +309,7 @@ UniValue getblockhash(const UniValue& params, bool fHelp)
     return pblockindex->GetBlockHash().GetHex();
 }
 
-/*uint256 _komodo_getblockhash(int32_t nHeight)
+/*uint256 _safecoin_getblockhash(int32_t nHeight)
 {
     uint256 hash;
     LOCK(cs_main);
@@ -512,21 +512,21 @@ UniValue gettxoutsetinfo(const UniValue& params, bool fHelp)
     return ret;
 }
 
-#include "komodo_defs.h"
+#include "safecoin_defs.h"
 
 #define IGUANA_MAXSCRIPTSIZE 10001
-#define KOMODO_KVDURATION 1440
-#define KOMODO_KVBINARY 2
-extern char ASSETCHAINS_SYMBOL[KOMODO_ASSETCHAIN_MAXLEN];
-uint64_t komodo_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,uint32_t tiptime);
-uint32_t komodo_txtime(uint256 hash);
-uint64_t komodo_paxprice(uint64_t *seedp,int32_t height,char *base,char *rel,uint64_t basevolume);
-int32_t komodo_paxprices(int32_t *heights,uint64_t *prices,int32_t max,char *base,char *rel);
-int32_t komodo_notaries(uint8_t pubkeys[64][33],int32_t height);
+#define SAFECOIN_KVDURATION 1440
+#define SAFECOIN_KVBINARY 2
+extern char ASSETCHAINS_SYMBOL[SAFECOIN_ASSETCHAIN_MAXLEN];
+uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,uint32_t tiptime);
+uint32_t safecoin_txtime(uint256 hash);
+uint64_t safecoin_paxprice(uint64_t *seedp,int32_t height,char *base,char *rel,uint64_t basevolume);
+int32_t safecoin_paxprices(int32_t *heights,uint64_t *prices,int32_t max,char *base,char *rel);
+int32_t safecoin_notaries(uint8_t pubkeys[64][33],int32_t height);
 char *bitcoin_address(char *coinaddr,uint8_t addrtype,uint8_t *pubkey_or_rmd160,int32_t len);
-//uint32_t komodo_interest_args(int32_t *txheightp,uint32_t *tiptimep,uint64_t *valuep,uint256 hash,int32_t n);
-int32_t komodo_minerids(uint8_t *minerids,int32_t height,int32_t width);
-int32_t komodo_kvsearch(uint256 *refpubkeyp,int32_t current_height,uint32_t *flagsp,int32_t *heightp,uint8_t value[IGUANA_MAXSCRIPTSIZE],uint8_t *key,int32_t keylen);
+//uint32_t safecoin_interest_args(int32_t *txheightp,uint32_t *tiptimep,uint64_t *valuep,uint256 hash,int32_t n);
+int32_t safecoin_minerids(uint8_t *minerids,int32_t height,int32_t width);
+int32_t safecoin_kvsearch(uint256 *refpubkeyp,int32_t current_height,uint32_t *flagsp,int32_t *heightp,uint8_t value[IGUANA_MAXSCRIPTSIZE],uint8_t *key,int32_t keylen);
 /*uint64_t conv_NXTpassword(unsigned char *mysecret,unsigned char *mypublic,uint8_t *pass,int32_t passlen);
 
 
@@ -552,14 +552,14 @@ UniValue kvsearch(const UniValue& params, bool fHelp)
     LOCK(cs_main);
     if ( (keylen= (int32_t)strlen(params[0].get_str().c_str())) > 0 )
     {
-        ret.push_back(Pair("coin",(char *)(ASSETCHAINS_SYMBOL[0] == 0 ? "KMD" : ASSETCHAINS_SYMBOL)));
+        ret.push_back(Pair("coin",(char *)(ASSETCHAINS_SYMBOL[0] == 0 ? "SAFE" : ASSETCHAINS_SYMBOL)));
         ret.push_back(Pair("currentheight", (int64_t)chainActive.Tip()->nHeight));
         ret.push_back(Pair("key",params[0].get_str()));
         ret.push_back(Pair("keylen",keylen));
         if ( keylen < sizeof(key) )
         {
             memcpy(key,params[0].get_str().c_str(),keylen);
-            if ( (valuesize= komodo_kvsearch(&refpubkey,chainActive.Tip()->nHeight,&flags,&height,value,key,keylen)) >= 0 )
+            if ( (valuesize= safecoin_kvsearch(&refpubkey,chainActive.Tip()->nHeight,&flags,&height,value,key,keylen)) >= 0 )
             {
                 std::string val; char *valuestr;
                 val.resize(valuesize);
@@ -568,7 +568,7 @@ UniValue kvsearch(const UniValue& params, bool fHelp)
                 if ( memcmp(&zeroes,&refpubkey,sizeof(refpubkey)) != 0 )
                     ret.push_back(Pair("owner",refpubkey.GetHex()));
                 ret.push_back(Pair("height",height));
-                duration = ((flags >> 2) + 1) * KOMODO_KVDURATION;
+                duration = ((flags >> 2) + 1) * SAFECOIN_KVDURATION;
                 ret.push_back(Pair("expiration", (int64_t)(height+duration)));
                 ret.push_back(Pair("flags",(int64_t)flags));
                 ret.push_back(Pair("value",val));
@@ -588,10 +588,10 @@ UniValue minerids(const UniValue& params, bool fHelp)
     int32_t height = atoi(params[0].get_str().c_str());
     if ( height <= 0 )
         height = chainActive.Tip()->nHeight;
-    if ( (n= komodo_minerids(minerids,height,(int32_t)(sizeof(minerids)/sizeof(*minerids)))) > 0 )
+    if ( (n= safecoin_minerids(minerids,height,(int32_t)(sizeof(minerids)/sizeof(*minerids)))) > 0 )
     {
         memset(tally,0,sizeof(tally));
-        numnotaries = komodo_notaries(pubkeys,height);
+        numnotaries = safecoin_notaries(pubkeys,height);
         if ( numnotaries > 0 )
         {
             for (i=0; i<n; i++)
@@ -602,19 +602,19 @@ UniValue minerids(const UniValue& params, bool fHelp)
             }
             for (i=0; i<64; i++)
             {
-                UniValue item(UniValue::VOBJ); std::string hex,kmdaddress; char *hexstr,kmdaddr[64],*ptr; int32_t m;
+                UniValue item(UniValue::VOBJ); std::string hex,SAFEaddress; char *hexstr,SAFEaddr[64],*ptr; int32_t m;
                 hex.resize(66);
                 hexstr = (char *)hex.data();
                 for (j=0; j<33; j++)
                     sprintf(&hexstr[j*2],"%02x",pubkeys[i][j]);
                 item.push_back(Pair("notaryid", i));
 
-                bitcoin_address(kmdaddr,60,pubkeys[i],33);
-                m = (int32_t)strlen(kmdaddr);
-                kmdaddress.resize(m);
-                ptr = (char *)kmdaddress.data();
-                memcpy(ptr,kmdaddr,m);
-                item.push_back(Pair("KMDaddress", kmdaddress));
+                bitcoin_address(SAFEaddr,60,pubkeys[i],33);
+                m = (int32_t)strlen(SAFEaddr);
+                SAFEaddress.resize(m);
+                ptr = (char *)SAFEaddress.data();
+                memcpy(ptr,SAFEaddr,m);
+                item.push_back(Pair("SAFEaddress", SAFEaddress));
 
                 item.push_back(Pair("pubkey", hex));
                 item.push_back(Pair("blocks", tally[i]));
@@ -632,7 +632,7 @@ UniValue minerids(const UniValue& params, bool fHelp)
 
 UniValue notaries(const UniValue& params, bool fHelp)
 {
-    UniValue a(UniValue::VARR); UniValue ret(UniValue::VOBJ); int32_t i,j,n,m; char *hexstr;  uint8_t pubkeys[64][33]; char btcaddr[64],kmdaddr[64],*ptr;
+    UniValue a(UniValue::VARR); UniValue ret(UniValue::VOBJ); int32_t i,j,n,m; char *hexstr;  uint8_t pubkeys[64][33]; char btcaddr[64],SAFEaddr[64],*ptr;
     if ( fHelp || params.size() != 1 )
         throw runtime_error("notaries height\n");
     LOCK(cs_main);
@@ -644,12 +644,12 @@ UniValue notaries(const UniValue& params, bool fHelp)
     //    throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
     //else
     {
-        if ( (n= komodo_notaries(pubkeys,height)) > 0 )
+        if ( (n= safecoin_notaries(pubkeys,height)) > 0 )
         {
             for (i=0; i<n; i++)
             {
                 UniValue item(UniValue::VOBJ);
-                std::string btcaddress,kmdaddress,hex;
+                std::string btcaddress,SAFEaddress,hex;
                 hex.resize(66);
                 hexstr = (char *)hex.data();
                 for (j=0; j<33; j++)
@@ -663,12 +663,12 @@ UniValue notaries(const UniValue& params, bool fHelp)
                 memcpy(ptr,btcaddr,m);
                 item.push_back(Pair("BTCaddress", btcaddress));
 
-                bitcoin_address(kmdaddr,60,pubkeys[i],33);
-                m = (int32_t)strlen(kmdaddr);
-                kmdaddress.resize(m);
-                ptr = (char *)kmdaddress.data();
-                memcpy(ptr,kmdaddr,m);
-                item.push_back(Pair("KMDaddress", kmdaddress));
+                bitcoin_address(SAFEaddr,60,pubkeys[i],33);
+                m = (int32_t)strlen(SAFEaddr);
+                SAFEaddress.resize(m);
+                ptr = (char *)SAFEaddress.data();
+                memcpy(ptr,SAFEaddr,m);
+                item.push_back(Pair("SAFEaddress", SAFEaddress));
                 a.push_back(item);
             }
         }
@@ -678,7 +678,7 @@ UniValue notaries(const UniValue& params, bool fHelp)
     return ret;
 }
 
-int32_t komodo_pending_withdraws(char *opretstr);
+int32_t safecoin_pending_withdraws(char *opretstr);
 int32_t pax_fiatstatus(uint64_t *available,uint64_t *deposited,uint64_t *issued,uint64_t *withdrawn,uint64_t *approved,uint64_t *redeemed,char *base);
 extern char CURRENCIES[][8];
 
@@ -688,7 +688,7 @@ UniValue paxpending(const UniValue& params, bool fHelp)
     if ( fHelp || params.size() != 0 )
         throw runtime_error("paxpending needs no args\n");
     LOCK(cs_main);
-    if ( (opretlen= komodo_pending_withdraws(opretbuf)) > 0 )
+    if ( (opretlen= safecoin_pending_withdraws(opretbuf)) > 0 )
         ret.push_back(Pair("withdraws", opretbuf));
     else ret.push_back(Pair("withdraws", (char *)""));
     for (baseid=0; baseid<32; baseid++)
@@ -727,7 +727,7 @@ UniValue paxprice(const UniValue& params, bool fHelp)
     else height = atoi(params[2].get_str().c_str());
     //if ( params.size() == 3 || (basevolume= COIN * atof(params[3].get_str().c_str())) == 0 )
         basevolume = 100000;
-    relvolume = komodo_paxprice(&seed,height,(char *)base.c_str(),(char *)rel.c_str(),basevolume);
+    relvolume = safecoin_paxprice(&seed,height,(char *)base.c_str(),(char *)rel.c_str(),basevolume);
     ret.push_back(Pair("base", base));
     ret.push_back(Pair("rel", rel));
     ret.push_back(Pair("height", height));
@@ -767,7 +767,7 @@ UniValue paxprices(const UniValue& params, bool fHelp)
         maxsamples = sizeof(heights)/sizeof(*heights);
     ret.push_back(Pair("base", base));
     ret.push_back(Pair("rel", rel));
-    n = komodo_paxprices(heights,prices,maxsamples,(char *)base.c_str(),(char *)rel.c_str());
+    n = safecoin_paxprices(heights,prices,maxsamples,(char *)base.c_str(),(char *)rel.c_str());
     UniValue a(UniValue::VARR);
     for (i=0; i<n; i++)
     {
@@ -787,7 +787,7 @@ UniValue paxprices(const UniValue& params, bool fHelp)
     return ret;
 }
 
-uint64_t komodo_accrued_interest(int32_t *txheightp,uint32_t *locktimep,uint256 hash,int32_t n,int32_t checkheight,uint64_t checkvalue);
+uint64_t safecoin_accrued_interest(int32_t *txheightp,uint32_t *locktimep,uint256 hash,int32_t n,int32_t checkheight,uint64_t checkvalue);
 
 UniValue gettxout(const UniValue& params, bool fHelp)
 {
@@ -860,7 +860,7 @@ UniValue gettxout(const UniValue& params, bool fHelp)
     else ret.push_back(Pair("confirmations", pindex->nHeight - coins.nHeight + 1));
     ret.push_back(Pair("value", ValueFromAmount(coins.vout[n].nValue)));
     uint64_t interest; int32_t txheight; uint32_t locktime;
-    if ( (interest= komodo_accrued_interest(&txheight,&locktime,hash,n,coins.nHeight,coins.vout[n].nValue)) != 0 )
+    if ( (interest= safecoin_accrued_interest(&txheight,&locktime,hash,n,coins.nHeight,coins.vout[n].nValue)) != 0 )
         ret.push_back(Pair("interest", ValueFromAmount(interest)));
     UniValue o(UniValue::VOBJ);
     ScriptPubKeyToJSON(coins.vout[n].scriptPubKey, o, true);

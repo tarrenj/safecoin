@@ -12,7 +12,7 @@
 #include "primitives/block.h"
 #include "protocol.h"
 
-#define KOMODO_MINDIFF_NBITS 0x200f0f0f
+#define SAFECOIN_MINDIFF_NBITS 0x200f0f0f
 
 #include <vector>
 
@@ -87,18 +87,15 @@ public:
     void SetRegTestCoinbaseMustBeProtected() { consensus.fCoinbaseMustBeProtected = true; }
 
     void SetDefaultPort(uint16_t port) { nDefaultPort = port; }
-    void SetCheckpointData(Checkpoints::CCheckpointData checkpointData);
-
     //void setnonce(uint32_t nonce) { memcpy(&genesis.nNonce,&nonce,sizeof(nonce)); }
     //void settimestamp(uint32_t timestamp) { genesis.nTime = timestamp; }
     //void setgenesis(CBlock &block) { genesis = block; }
     //void recalc_genesis(uint32_t nonce) { genesis = CreateGenesisBlock(ASSETCHAINS_TIMESTAMP, nonce, GENESIS_NBITS, 1, COIN); };
     int nDefaultPort = 0;
     CMessageHeader::MessageStartChars pchMessageStart; // jl777 moved
-    Consensus::Params consensus;
-
 protected:
     CChainParams() {}
+    Consensus::Params consensus; 
 
      //! Raw pub key bytes for the broadcast alert signing key.
     std::vector<unsigned char> vAlertPubKey;

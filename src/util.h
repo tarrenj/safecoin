@@ -130,7 +130,7 @@ void CreatePidFile(const boost::filesystem::path &path, pid_t pid);
 #endif
 class missing_zcash_conf : public std::runtime_error {
 public:
-    missing_zcash_conf() : std::runtime_error("Missing komodo.conf") { }
+    missing_zcash_conf() : std::runtime_error("Missing safecoin.conf") { }
 };
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet, std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet);
 #ifdef _WIN32

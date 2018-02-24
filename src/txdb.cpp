@@ -269,7 +269,7 @@ bool CBlockTreeDB::ReadFlag(const std::string &name, bool &fValue) {
     return true;
 }
 
-void komodo_index2pubkey33(uint8_t *pubkey33,CBlockIndex *pindex,int32_t height);
+void safecoin_index2pubkey33(uint8_t *pubkey33,CBlockIndex *pindex,int32_t height);
 
 bool CBlockTreeDB::LoadBlockIndexGuts()
 {
@@ -302,7 +302,6 @@ bool CBlockTreeDB::LoadBlockIndexGuts()
                 pindexNew->nUndoPos       = diskindex.nUndoPos;
                 pindexNew->hashAnchor     = diskindex.hashAnchor;
                 pindexNew->nVersion       = diskindex.nVersion;
-                pindexNew->hashReserved   = diskindex.hashReserved;
                 pindexNew->hashMerkleRoot = diskindex.hashMerkleRoot;
                 pindexNew->nTime          = diskindex.nTime;
                 pindexNew->nBits          = diskindex.nBits;
@@ -311,7 +310,7 @@ bool CBlockTreeDB::LoadBlockIndexGuts()
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
                 uint8_t pubkey33[33];
-                komodo_index2pubkey33(pubkey33,pindexNew,pindexNew->nHeight);
+                safecoin_index2pubkey33(pubkey33,pindexNew,pindexNew->nHeight);
                 if (!CheckProofOfWork(pindexNew->nHeight,pubkey33,pindexNew->GetBlockHash(), pindexNew->nBits, Params().GetConsensus()))
                     return error("LoadBlockIndex(): CheckProofOfWork failed: %s", pindexNew->ToString());
                 pcursor->Next();

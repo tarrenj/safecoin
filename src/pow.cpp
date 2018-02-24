@@ -115,31 +115,31 @@ bool CheckEquihashSolution(const CBlockHeader *pblock, const CChainParams& param
     return true;
 }
 
-int32_t komodo_chosennotary(int32_t *notaryidp,int32_t height,uint8_t *pubkey33);
-int32_t komodo_is_special(int32_t height,uint8_t pubkey33[33]);
-int32_t komodo_currentheight();
-CBlockIndex *komodo_chainactive(int32_t height);
-int8_t komodo_minerid(int32_t height,uint8_t *pubkey33);
-void komodo_index2pubkey33(uint8_t *pubkey33,CBlockIndex *pindex,int32_t height);
-extern int32_t KOMODO_CHOSEN_ONE;
-#define KOMODO_ELECTION_GAP 2000
- 
-int32_t komodo_eligiblenotary(uint8_t pubkeys[66][33],int32_t *mids,int32_t *nonzpkeysp,int32_t height);
-int32_t KOMODO_LOADINGBLOCKS;
+int32_t safecoin_chosennotary(int32_t *notaryidp,int32_t height,uint8_t *pubkey33);
+int32_t safecoin_is_special(int32_t height,uint8_t pubkey33[33]);
+int32_t safecoin_currentheight();
+CBlockIndex *safecoin_chainactive(int32_t height);
+int8_t safecoin_minerid(int32_t height,uint8_t *pubkey33);
+void safecoin_index2pubkey33(uint8_t *pubkey33,CBlockIndex *pindex,int32_t height);
+extern int32_t SAFECOIN_CHOSEN_ONE;
+#define SAFECOIN_ELECTION_GAP 2000
+
+int32_t safecoin_eligiblenotary(uint8_t pubkeys[66][33],int32_t *mids,int32_t *nonzpkeysp,int32_t height);
+int32_t SAFECOIN_LOADINGBLOCKS;
 
 extern std::string NOTARY_PUBKEY;
 
 bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned int nBits, const Consensus::Params& params)
 {
-    extern int32_t KOMODO_REWIND;
+    extern int32_t SAFECOIN_REWIND;
     bool fNegative,fOverflow; int32_t i,nonzpkeys=0,nonz=0,special=0,special2=0,notaryid=-1,duplicate,flag = 0, mids[66];
     arith_uint256 bnTarget; CBlockIndex *pindex; uint8_t pubkeys[66][33];
 
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
     if ( height == 0 )
-        height = komodo_currentheight() + 1;
-    special = komodo_chosennotary(&notaryid,height,pubkey33);
-    flag = komodo_eligiblenotary(pubkeys,mids,&nonzpkeys,height);
+        height = safecoin_currentheight() + 1;
+    special = safecoin_chosennotary(&notaryid,height,pubkey33);
+    flag = safecoin_eligiblenotary(pubkeys,mids,&nonzpkeys,height);
     if ( height > 34000 ) // 0 -> non-special notary
     {
         for (i=0; i<33; i++)
@@ -149,7 +149,7 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
         }
         if ( nonz == 0 )
             return(true); // will come back via different path with pubkey set
-        special2 = komodo_is_special(height,pubkey33);
+        special2 = safecoin_is_special(height,pubkey33);
         if ( notaryid >= 0 )
         {
             if ( height > 10000 && height < 80000 && (special != 0 || special2 > 0) )
@@ -157,9 +157,9 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
             else if ( height >= 80000 && height < 108000 && special2 > 0 )
                 flag = 1;
             else if ( height >= 108000 && special2 > 0 )
-                flag = ((height % KOMODO_ELECTION_GAP) > 64 || (height % KOMODO_ELECTION_GAP) == 0);
+                flag = ((height % SAFECOIN_ELECTION_GAP) > 64 || (height % SAFECOIN_ELECTION_GAP) == 0);
             if ( flag != 0 )
-                bnTarget.SetCompact(KOMODO_MINDIFF_NBITS,&fNegative,&fOverflow);
+                bnTarget.SetCompact(SAFECOIN_MINDIFF_NBITS,&fNegative,&fOverflow);
         }
     }
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
@@ -167,8 +167,8 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
     // Check proof of work matches claimed amount
     if ( UintToArith256(hash) > bnTarget )
     {
-        if ( (height < 235300 || height >= 236000) && KOMODO_LOADINGBLOCKS == 0 && height > 188000 )
-            //&&  )//186269, 182507&& komodo_chainactive(height) != 0 && nonzpkeys > 0
+        if ( (height < 235300 || height >= 236000) && SAFECOIN_LOADINGBLOCKS == 0 && height > 188000 )
+            //&&  )//186269, 182507&& safecoin_chainactive(height) != 0 && nonzpkeys > 0
         {
             for (i=31; i>=0; i--)
                 printf("%02x",((uint8_t *)&hash)[i]);
@@ -182,12 +182,12 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
             for (i=0; i<66; i++)
                 printf("%d ",mids[i]);
             printf(" minerids from ht.%d\n",height);
-            if ( KOMODO_REWIND == 0 && (notaryid >= 0 || height > 225000) )
+            if ( SAFECOIN_REWIND == 0 && (notaryid >= 0 || height > 225000) )
             {
-                fprintf(stderr,"pow error height.%d loading.%d notaryid.%d\n",height,KOMODO_LOADINGBLOCKS,notaryid);
+                fprintf(stderr,"pow error height.%d loading.%d notaryid.%d\n",height,SAFECOIN_LOADINGBLOCKS,notaryid);
                 return error("CheckProofOfWork(): hash doesn't match nBits");
-            } else fprintf(stderr,"skip return error height.%d loading.%d\n",height,KOMODO_LOADINGBLOCKS);
-        } //else fprintf(stderr,"skip height.%d loading.%d\n",height,KOMODO_LOADINGBLOCKS);
+            } else fprintf(stderr,"skip return error height.%d loading.%d\n",height,SAFECOIN_LOADINGBLOCKS);
+        } //else fprintf(stderr,"skip height.%d loading.%d\n",height,SAFECOIN_LOADINGBLOCKS);
     }
     if ( 0 && height > 248000 )
     {

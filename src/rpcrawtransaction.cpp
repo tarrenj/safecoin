@@ -22,7 +22,7 @@
 #include "wallet/wallet.h"
 #endif
 
-#include "komodo_defs.h"
+#include "safecoin_defs.h"
 
 #include <stdint.h>
 
@@ -112,7 +112,7 @@ UniValue TxJoinSplitToJSON(const CTransaction& tx) {
     return vjoinsplit;
 }
 
-uint64_t komodo_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,uint32_t tiptime);
+uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,uint32_t tiptime);
 
 void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry)
 {
@@ -146,8 +146,8 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry)
         out.push_back(Pair("value", ValueFromAmount(txout.nValue)));
         if ( pindex != 0 && tx.nLockTime != 0 && (tipindex= chainActive.Tip()) != 0 )
         {
-            extern char ASSETCHAINS_SYMBOL[KOMODO_ASSETCHAIN_MAXLEN];
-            interest = komodo_interest(pindex->nHeight,txout.nValue,tx.nLockTime,tipindex->nTime);
+            extern char ASSETCHAINS_SYMBOL[SAFECOIN_ASSETCHAIN_MAXLEN];
+            interest = safecoin_interest(pindex->nHeight,txout.nValue,tx.nLockTime,tipindex->nTime);
             if ( 0 && strcmp("REVS",ASSETCHAINS_SYMBOL) == 0 )
                 fprintf(stderr,"TxtoJSON interest %llu %.8f (%d %llu %u %u)\n",(long long)interest,(double)interest/COIN,(int32_t)pindex->nHeight,(long long)txout.nValue,(uint32_t)tx.nLockTime,(int32_t)tipindex->nTime);
             out.push_back(Pair("interest", ValueFromAmount(interest)));

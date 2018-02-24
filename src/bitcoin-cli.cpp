@@ -22,7 +22,7 @@
 using namespace std;
 
 int64_t MAX_MONEY = 200000000 * 100000000LL;
-uint64_t komodo_maxallowed(int32_t baseid) { return(100000000LL * 1000000); } // stub
+uint64_t safecoin_maxallowed(int32_t baseid) { return(100000000LL * 100000); } // stub
 
 static const int DEFAULT_HTTP_CLIENT_TIMEOUT=900;
 
@@ -31,7 +31,7 @@ std::string HelpMessageCli()
     string strUsage;
     strUsage += HelpMessageGroup(_("Options:"));
     strUsage += HelpMessageOpt("-?", _("This help message"));
-    strUsage += HelpMessageOpt("-conf=<file>", strprintf(_("Specify configuration file (default: %s)"), "komodo.conf"));
+    strUsage += HelpMessageOpt("-conf=<file>", strprintf(_("Specify configuration file (default: %s)"), "safecoin.conf"));
     strUsage += HelpMessageOpt("-datadir=<dir>", _("Specify data directory"));
     strUsage += HelpMessageOpt("-testnet", _("Use the test network"));
     strUsage += HelpMessageOpt("-regtest", _("Enter regression test mode, which uses a special chain in which blocks can be "
@@ -68,16 +68,16 @@ public:
 #include "uint256.h"
 #include "arith_uint256.h"
 
-#include "komodo_structs.h"
+#include "safecoin_structs.h"
 
-#include "komodo_globals.h"
-#include "komodo_utils.h"
-#include "komodo_cJSON.c"
-#include "komodo_notary.h"
+#include "safecoin_globals.h"
+#include "safecoin_utils.h"
+#include "safecoin_cJSON.c"
+#include "safecoin_notary.h"
 
-void komodo_stateupdate(int32_t height,uint8_t notarypubs[][33],uint8_t numnotaries,uint8_t notaryid,uint256 txhash,uint64_t voutmask,uint8_t numvouts,uint32_t *pvals,uint8_t numpvals,int32_t KMDheight,uint32_t KMDtimestamp,uint64_t opretvalue,uint8_t *opretbuf,uint16_t opretlen,uint16_t vout)
+void safecoin_stateupdate(int32_t height,uint8_t notarypubs[][33],uint8_t numnotaries,uint8_t notaryid,uint256 txhash,uint64_t voutmask,uint8_t numvouts,uint32_t *pvals,uint8_t numpvals,int32_t SAFEheight,uint32_t SAFEtimestamp,uint64_t opretvalue,uint8_t *opretbuf,uint16_t opretlen,uint16_t vout)
 {
-    
+
 }
 
 static bool AppInitRPC(int argc, char* argv[])
@@ -86,14 +86,14 @@ static bool AppInitRPC(int argc, char* argv[])
     // Parameters
     //
     ParseParameters(argc, argv);
-    komodo_args(argv[0]);
+    safecoin_args(argv[0]);
     if (argc<2 || mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help") || mapArgs.count("-version")) {
-        std::string strUsage = _("Komodo RPC client version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
+        std::string strUsage = _("Safecoin RPC client version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
         if (!mapArgs.count("-version")) {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  komodo-cli [options] <command> [params]  " + _("Send command to Komodo") + "\n" +
-                  "  komodo-cli [options] help                " + _("List commands") + "\n" +
-                  "  komodo-cli [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  safecoin-cli [options] <command> [params]  " + _("Send command to Safecoin") + "\n" +
+                  "  safecoin-cli [options] help                " + _("List commands") + "\n" +
+                  "  safecoin-cli [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessageCli();
         } else {

@@ -61,7 +61,7 @@ unsigned int TxConfirmStats::FindBucketIndex(double val)
     if ( it != bucketMap.end() )
     {
         static uint32_t counter;
-        if ( counter++ < 1 )
+        if ( counter++ < 10 )
             fprintf(stderr,"%s FindBucketIndex violation: from val %f\n",ASSETCHAINS_SYMBOL,val);
     }
     return it->second;

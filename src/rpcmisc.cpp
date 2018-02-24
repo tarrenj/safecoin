@@ -43,18 +43,18 @@ using namespace std;
 
 int32_t Jumblr_depositaddradd(char *depositaddr);
 int32_t Jumblr_secretaddradd(char *secretaddr);
-uint64_t komodo_interestsum();
-int32_t komodo_longestchain();
-int32_t komodo_notarized_height(uint256 *hashp,uint256 *txidp);
-int32_t komodo_whoami(char *pubkeystr,int32_t height);
-extern int32_t KOMODO_LASTMINED,JUMBLR_PAUSE;
+uint64_t safecoin_interestsum();
+int32_t safecoin_longestchain();
+int32_t safecoin_notarized_height(uint256 *hashp,uint256 *txidp);
+int32_t safecoin_whoami(char *pubkeystr,int32_t height);
+extern int32_t SAFECOIN_LASTMINED,JUMBLR_PAUSE;
 extern char ASSETCHAINS_SYMBOL[];
-int32_t notarizedtxid_height(char *dest,char *txidstr,int32_t *kmdnotarized_heightp);
-#define KOMODO_VERSION "0.1.1"
+int32_t notarizedtxid_height(char *dest,char *txidstr,int32_t *SAFEnotarized_heightp);
+#define SAFECOIN_VERSION "0.1.1"
 
 UniValue getinfo(const UniValue& params, bool fHelp)
 {
-    uint256 notarized_hash,notarized_desttxid; int32_t notarized_height,longestchain,kmdnotarized_height,txid_height;
+    uint256 notarized_hash,notarized_desttxid; int32_t notarized_height,longestchain,SAFEnotarized_height,txid_height;
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getinfo\n"
@@ -91,32 +91,32 @@ UniValue getinfo(const UniValue& params, bool fHelp)
 
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
-    notarized_height = komodo_notarized_height(&notarized_hash,&notarized_desttxid);
+    notarized_height = safecoin_notarized_height(&notarized_hash,&notarized_desttxid);
 
     UniValue obj(UniValue::VOBJ);
     obj.push_back(Pair("version", CLIENT_VERSION));
     obj.push_back(Pair("protocolversion", PROTOCOL_VERSION));
-    obj.push_back(Pair("KMDversion", KOMODO_VERSION));
+    obj.push_back(Pair("SAFEversion", SAFECOIN_VERSION));
     obj.push_back(Pair("notarized", notarized_height));
     obj.push_back(Pair("notarizedhash", notarized_hash.ToString()));
     obj.push_back(Pair("notarizedtxid", notarized_desttxid.ToString()));
-    txid_height = notarizedtxid_height(ASSETCHAINS_SYMBOL[0] != 0 ? (char *)"KMD" : (char *)"BTC",(char *)notarized_desttxid.ToString().c_str(),&kmdnotarized_height);
+    txid_height = notarizedtxid_height(ASSETCHAINS_SYMBOL[0] != 0 ? (char *)"SAFE" : (char *)"BTC",(char *)notarized_desttxid.ToString().c_str(),&SAFEnotarized_height);
     if ( txid_height > 0 )
         obj.push_back(Pair("notarizedtxid_height", txid_height));
     else obj.push_back(Pair("notarizedtxid_height", "mempool"));
     if ( ASSETCHAINS_SYMBOL[0] != 0 )
-        obj.push_back(Pair("KMDnotarized_height", kmdnotarized_height));
-    obj.push_back(Pair("notarized_confirms", txid_height < kmdnotarized_height ? (kmdnotarized_height - txid_height + 1) : 0));
+        obj.push_back(Pair("SAFEnotarized_height", SAFEnotarized_height));
+    obj.push_back(Pair("notarized_confirms", txid_height < SAFEnotarized_height ? (SAFEnotarized_height - txid_height + 1) : 0));
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
         obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
         obj.push_back(Pair("balance",       ValueFromAmount(pwalletMain->GetBalance())));
         if ( ASSETCHAINS_SYMBOL[0] == 0 )
-            obj.push_back(Pair("interest",       ValueFromAmount(komodo_interestsum())));
+            obj.push_back(Pair("interest",       ValueFromAmount(safecoin_interestsum())));
     }
 #endif
     obj.push_back(Pair("blocks",        (int)chainActive.Height()));
-    if ( (longestchain= komodo_longestchain()) != 0 && chainActive.Height() > longestchain )
+    if ( (longestchain= safecoin_longestchain()) != 0 && chainActive.Height() > longestchain )
         longestchain = chainActive.Height();
     obj.push_back(Pair("longestchain",        longestchain));
     obj.push_back(Pair("timeoffset",    GetTimeOffset()));
@@ -139,12 +139,12 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
     {
         char pubkeystr[65]; int32_t notaryid;
-        if ( (notaryid= komodo_whoami(pubkeystr,(int32_t)chainActive.Tip()->nHeight)) >= 0 )
+        if ( (notaryid= safecoin_whoami(pubkeystr,(int32_t)chainActive.Tip()->nHeight)) >= 0 )
         {
             obj.push_back(Pair("notaryid",        notaryid));
             obj.push_back(Pair("pubkey",        pubkeystr));
-            if ( KOMODO_LASTMINED != 0 )
-                obj.push_back(Pair("lastmined",        KOMODO_LASTMINED));
+            if ( SAFECOIN_LASTMINED != 0 )
+                obj.push_back(Pair("lastmined",        SAFECOIN_LASTMINED));
         }
     }
     return obj;

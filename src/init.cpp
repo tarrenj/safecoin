@@ -320,7 +320,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-blocknotify=<cmd>", _("Execute command when the best block changes (%s in cmd is replaced by block hash)"));
     strUsage += HelpMessageOpt("-checkblocks=<n>", strprintf(_("How many blocks to check at startup (default: %u, 0 = all)"), 288));
     strUsage += HelpMessageOpt("-checklevel=<n>", strprintf(_("How thorough the block verification of -checkblocks is (0-4, default: %u)"), 3));
-    strUsage += HelpMessageOpt("-conf=<file>", strprintf(_("Specify configuration file (default: %s)"), "komodo.conf"));
+    strUsage += HelpMessageOpt("-conf=<file>", strprintf(_("Specify configuration file (default: %s)"), "safecoin.conf"));
     if (mode == HMM_BITCOIND)
     {
 #if !defined(WIN32)
@@ -335,7 +335,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-par=<n>", strprintf(_("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)"),
         -(int)boost::thread::hardware_concurrency(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS));
 #ifndef _WIN32
-    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "komodod.pid"));
+    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "safecoind.pid"));
 #endif
     strUsage += HelpMessageOpt("-prune=<n>", strprintf(_("Reduce storage requirements by pruning (deleting) old blocks. This mode disables wallet support and is incompatible with -txindex. "
             "Warning: Reverting this setting requires re-downloading the entire blockchain. "
@@ -555,8 +555,8 @@ void CleanupBlockRevFiles()
                 remove(it->path());
         }
     }
-    path komodostate = GetDataDir() / "komodostate";
-    remove(komodostate);
+    path safecoinstate = GetDataDir() / "safecoinstate";
+    remove(safecoinstate);
     path minerids = GetDataDir() / "minerids";
     remove(minerids);
     // Remove all block files that aren't part of a contiguous set starting at
@@ -702,7 +702,7 @@ bool AppInitServers(boost::thread_group& threadGroup)
 /** Initialize bitcoin.
  *  @pre Parameters should be parsed and config file should be read.
  */
-extern int32_t KOMODO_REWIND;
+extern int32_t SAFECOIN_REWIND;
 
 bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 {
@@ -1026,7 +1026,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // Sanity check
     if (!InitSanityCheck())
-        return InitError(_("Initialization sanity check failed. Komodo is shutting down."));
+        return InitError(_("Initialization sanity check failed. Safecoin is shutting down."));
 
     std::string strDataDir = GetDataDir().string();
 #ifdef ENABLE_WALLET
@@ -1042,9 +1042,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     try {
         static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
         if (!lock.try_lock())
-            return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Komodo is probably already running."), strDataDir));
+            return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Safecoin is probably already running."), strDataDir));
     } catch(const boost::interprocess::interprocess_exception& e) {
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Komodo is probably already running.") + " %s.", strDataDir, e.what()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Safecoin is probably already running.") + " %s.", strDataDir, e.what()));
     }
 
 #ifndef _WIN32
@@ -1053,7 +1053,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     LogPrintf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    LogPrintf("Komodo version %s (%s)\n", FormatFullVersion(), CLIENT_DATE);
+    LogPrintf("Safecoin version %s (%s)\n", FormatFullVersion(), CLIENT_DATE);
 
     if (fPrintToDebugLog)
         OpenDebugLog();
@@ -1354,7 +1354,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                     LogPrintf("Prune: pruned datadir may not have more than %d blocks; -checkblocks=%d may fail\n",
                         MIN_BLOCKS_TO_KEEP, GetArg("-checkblocks", 288));
                 }
-                if ( KOMODO_REWIND == 0 )
+                if ( SAFECOIN_REWIND == 0 )
                 {
                     if (!CVerifyDB().VerifyDB(pcoinsdbview, GetArg("-checklevel", 3),
                                               GetArg("-checkblocks", 288))) {
@@ -1594,7 +1594,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     if (mapArgs.count("-blocknotify"))
         uiInterface.NotifyBlockTip.connect(BlockNotifyCallback);
-    if ( KOMODO_REWIND >= 0 )
+    if ( SAFECOIN_REWIND >= 0 )
     {
         uiInterface.InitMessage(_("Activating best chain..."));
         // scan for better chains in the block chain database, that are not yet connected in the active best chain
