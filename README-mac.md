@@ -21,7 +21,7 @@ brew install wget
 Get all that installed, then run:
 
 ```shell
-git clone https://github.com/j-cimb-barker/safecoin.git
+git clone https://github.com/fair-exchange/safecoin.git
 cd safecoin
 git checkout dev
 ./zcutil/build-mac.sh
