@@ -11,7 +11,7 @@ And this is the list of brew packages you'll need installed:
 ```shell
 brew tap discoteq/discoteq; brew install flock
 brew install autoconf autogen automake
-brew tap homebrew/versions; brew install gcc@5
+brew list --versions gcc@5; brew install gcc@5
 brew install binutils
 brew install protobuf
 brew install coreutils
