@@ -22,7 +22,7 @@ Block Reward: 128 SAFE Halving every 3 months for 2 years
 Mining Algorithm: Equihash 
 ## About this Project
 Safecoin is a fork of the Komodo and Zcash projects, although we have made significant changes and continue to evolve in our own direction.
-Same Zcash is based on Bitcoin's code, with differnece Zcash intends to offer a far higher standard of privacy through a sophisticated zero-knowledge proving scheme that preserves confidentiality of transaction metadata. Technical details are available in our [Protocol Specification](https://github.com/zcash/zips/raw/master/protocol/protocol.pdf). 
+Same Zcash is based on Bitcoin's code, with difference Zcash intends to offer a far higher standard of privacy through a sophisticated zero-knowledge proving scheme that preserves confidentiality of transaction metadata. Technical details are available in our [Protocol Specification](https://github.com/zcash/zips/raw/master/protocol/protocol.pdf). 
 ## Getting started
 Dependencies
 ------------
