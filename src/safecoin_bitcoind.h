@@ -770,7 +770,7 @@ int32_t safecoin_is_special(int32_t height,uint8_t pubkey33[33])
         safecoin_chosennotary(&notaryid,height,_pubkey33);
     if ( height >= 34000 && notaryid >= 0 )
     {
-      if ( height < 79693 )
+      if ( height < 796930 )
                   limit = 64;
                else limit = 66;
         for (i=1; i<limit; i++)
