@@ -102,11 +102,11 @@ public:
        assert(genesis.hashMerkleRoot == uint256S("0x0e8398ad8ba699fa41e1c56fe6112ca2530719c32b7e3d0cdb6610a458bd7e14"));
 
 
-       vSeeds.push_back(CDNSSeedData("35.229.44.140", "35.229.44.140")); // seed node
-       vSeeds.push_back(CDNSSeedData("35.231.110.175", "35.231.110.175")); // seed node
-       vSeeds.push_back(CDNSSeedData("35.224.125.48", "35.224.125.48")); // seed node
-       vSeeds.push_back(CDNSSeedData("18.219.144.28", "18.219.144.28")); // seed node
+       vSeeds.push_back(CDNSSeedData("144.202.48.90", "144.202.48.90")); // seed node
+       vSeeds.push_back(CDNSSeedData("45.77.109.253", "45.77.109.253")); // seed node
        vSeeds.push_back(CDNSSeedData("safecoin.org", "dnsseed.safecoin.org")); // Safecoin
+       vSeeds.push_back(CDNSSeedData("ipv6admin.com", "dnsseed.ipv6admin.com")); // Ipv6ipv6admin
+       vSeeds.push_back(CDNSSeedData("fair.exchange", "dnsseed.fair.exchange")); // Safecoin
 
         // TODO: set up bootstrapping for mainnet
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,61);
@@ -121,9 +121,9 @@ public:
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = true;  
+        fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = true;  
+        fRequireStandard = true;
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = false;
         checkpointData = (Checkpoints::CCheckpointData)
