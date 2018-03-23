@@ -90,7 +90,7 @@ struct pax_transaction *safecoin_paxmark(int32_t height,uint256 txid,uint16_t vo
         pax->marked = mark;
         //if ( height > 214700 || pax->height > 214700 )
         //    printf("mark ht.%d %.8f %.8f\n",pax->height,dstr(pax->safecoinshis),dstr(pax->fiatoshis));
-        
+
     }
     pthread_mutex_unlock(&safecoin_mutex);
     return(pax);
@@ -203,9 +203,9 @@ int32_t safecoin_issued_opreturn(char *base,uint256 *txids,uint16_t *vouts,int64
     //    return(0);
     incr = 34 + (issafecoin * (2*sizeof(fiatoshis) + 2*sizeof(height) + 20 + 4));
     //41e77b91cb68dc2aa02fa88550eae6b6d44db676a7e935337b6d1392d9718f03cb0200305c90660400000000fbcbeb1f000000bde801006201000058e7945ad08ddba1eac9c9b6c8e1e97e8016a2d152
-    
+
     // 41e94d736ec69d88c08b5d238abeeca609c02357a8317e0d56c328bcb1c259be5d0200485bc80200000000404b4c000000000059470200b80b000061f22ba7d19fe29ac3baebd839af8b7127d1f9075553440046bb4cc7a3b5cd39dffe7206507a3482a00780e617f68b273cce9817ed69298d02001069ca1b0000000080f0fa02000000005b470200b90b000061f22ba7d19fe29ac3baebd839af8b7127d1f90755
-    
+
     //for (i=0; i<opretlen; i++)
     //    printf("%02x",opretbuf[i]);
     //printf(" opretlen.%d (%s)\n",opretlen,base);
@@ -654,7 +654,7 @@ int32_t safecoin_check_deposit(int32_t height,const CBlock& block) // verify abo
 {
     static uint256 array[64]; static int32_t numbanned,indallvouts;
     int32_t i,j,k,n,ht,baseid,txn_count,activation,num,opretlen,offset=1,errs=0,matched=0,SAFEheights[256],otherheights[256]; uint256 hash,txids[256]; char symbol[SAFECOIN_ASSETCHAIN_MAXLEN],base[SAFECOIN_ASSETCHAIN_MAXLEN]; uint16_t vouts[256]; int8_t baseids[256]; uint8_t *script,opcode,rmd160s[256*20]; uint64_t total,available,deposited,issued,withdrawn,approved,redeemed,checktoshis,seed; int64_t values[256],srcvalues[256]; struct pax_transaction *pax; struct safecoin_state *sp;
-    activation = 235300;
+    activation = 1;   //sc yeah we want this now
     if ( *(int32_t *)&array[0] == 0 )
         numbanned = safecoin_bannedset(&indallvouts,array,(int32_t)(sizeof(array)/sizeof(*array)));
     memset(baseids,0xff,sizeof(baseids));
@@ -725,7 +725,7 @@ int32_t safecoin_check_deposit(int32_t height,const CBlock& block) // verify abo
     if ( ASSETCHAINS_SYMBOL[0] == 0 )
     {
         opcode = 'X';
-        if ( height >= 235300 )
+        if ( height >= 1 )  //passport activation, was 235300
             return(-1);
         strcpy(symbol,(char *)"SAFE");
         if ( safecoin_isrealtime(&ht) == 0 || SAFECOIN_PASSPORT_INITDONE == 0 ) // init time already in DB
@@ -1030,7 +1030,7 @@ int32_t safecoin_check_deposit(int32_t height,const CBlock& block) // verify abo
 
 const char *safecoin_opreturn(int32_t height,uint64_t value,uint8_t *opretbuf,int32_t opretlen,uint256 txid,uint16_t vout,char *source)
 {
-    uint8_t rmd160[20],rmd160s[64*20],addrtype,shortflag,pubkey33[33]; int32_t didstats,i,j,n,kvheight,len,tosafecoin,SAFEheight,otherheights[64],SAFEheights[64]; int8_t baseids[64]; char base[4],coinaddr[64],destaddr[64]; uint256 txids[64]; uint16_t vouts[64]; uint64_t convtoshis,seed; int64_t fee,fiatoshis,safecoinshis,checktoshis,values[64],srcvalues[64]; struct pax_transaction *pax,*pax2; struct safecoin_state *basesp; double diff; 
+    uint8_t rmd160[20],rmd160s[64*20],addrtype,shortflag,pubkey33[33]; int32_t didstats,i,j,n,kvheight,len,tosafecoin,SAFEheight,otherheights[64],SAFEheights[64]; int8_t baseids[64]; char base[4],coinaddr[64],destaddr[64]; uint256 txids[64]; uint16_t vouts[64]; uint64_t convtoshis,seed; int64_t fee,fiatoshis,safecoinshis,checktoshis,values[64],srcvalues[64]; struct pax_transaction *pax,*pax2; struct safecoin_state *basesp; double diff;
     const char *typestr = "unknown";
     if ( ASSETCHAINS_SYMBOL[0] != 0 && safecoin_baseid(ASSETCHAINS_SYMBOL) < 0 && opretbuf[0] != 'K' )
     {
@@ -1443,7 +1443,7 @@ void safecoin_stateind_set(struct safecoin_state *sp,uint32_t *inds,int32_t n,ui
     printf("numR.%d numV.%d numN.%d count.%d\n",numR,numV,numN,count);
     /*else if ( func == 'K' ) // SAFE height: stop after 1st
     else if ( func == 'T' ) // SAFE height+timestamp: stop after 1st
-        
+
     else if ( func == 'N' ) // notarization, scan backwards 1440+ blocks;
     else if ( func == 'V' ) // price feed: can stop after 1440+
     else if ( func == 'R' ) // opreturn:*/
@@ -1768,4 +1768,3 @@ void safecoin_passport_iteration()
         printf("done PASSPORT %s refid.%d\n",ASSETCHAINS_SYMBOL,refid);
     }
 }
-

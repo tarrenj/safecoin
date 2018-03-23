@@ -192,7 +192,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
         const int64_t nMedianTimePast = pindexPrev->GetMedianTimePast();
         CCoinsViewCache view(pcoinsTip);
         uint32_t expired;
-        
+
         // Priority order to process transactions
         list<COrphan> vOrphan; // list memory doesn't move
         map<uint256, vector<COrphan*> > mapDependers;
@@ -419,7 +419,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
             if ( txNew.vout.size() > 1 )
                 fprintf(stderr,"%s txNew numvouts.%d\n",ASSETCHAINS_SYMBOL,(int32_t)txNew.vout.size());
         }
-        
+
         pblock->vtx[0] = txNew;
         pblocktemplate->vTxFees[0] = -nFees;
         // Randomise nonce
@@ -762,7 +762,7 @@ void static BitcoinMiner()
             if ( ASSETCHAINS_SYMBOL[0] == 0 && notaryid >= 0 )//safecoin_is_special(pindexPrev->nHeight+1,NOTARY_PUBKEY33) > 0 )
             {
                 j = 65;
-                if ( (Mining_height >= 235300 && Mining_height < 236000) || (Mining_height % SAFECOIN_ELECTION_GAP) > 64 || (Mining_height % SAFECOIN_ELECTION_GAP) == 0 )
+                if ( (Mining_height > 1) || (Mining_height % SAFECOIN_ELECTION_GAP) > 64 || (Mining_height % SAFECOIN_ELECTION_GAP) == 0 )  //sc   Mining_height >= 235300 && Mining_height < 236000
                 {
                     safecoin_eligiblenotary(pubkeys,mids,&nonzpkeys,pindexPrev->nHeight);
                     if ( nonzpkeys > 0 )
@@ -812,7 +812,7 @@ void static BitcoinMiner()
                         if ( j == 65 )
                             SAFECOIN_LASTMINED = 0;
                     } else fprintf(stderr,"no nonz pubkeys\n");
-                    if ( (Mining_height >= 235300 && Mining_height < 236000) || (j == 65 && Mining_height > SAFECOIN_MAYBEMINED+1 && Mining_height > SAFECOIN_LASTMINED+64) )
+                    if ( (Mining_height > 0) || (j == 65 && Mining_height > SAFECOIN_MAYBEMINED+1 && Mining_height > SAFECOIN_LASTMINED+64) )   //sc Mining_height >= 235300 && Mining_height < 236000
                     {
                         hashTarget = arith_uint256().SetCompact(SAFECOIN_MINDIFF_NBITS);
                         fprintf(stderr,"I am the chosen one for %s ht.%d\n",ASSETCHAINS_SYMBOL,pindexPrev->nHeight+1);
