@@ -140,7 +140,7 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
         height = safecoin_currentheight() + 1;
     special = safecoin_chosennotary(&notaryid,height,pubkey33);
     flag = safecoin_eligiblenotary(pubkeys,mids,&nonzpkeys,height);
-    if ( height > 34000 ) // 0 -> non-special notary
+    if ( height > 3400000 ) // 0 -> non-special notary     //sc maybe some time not now
     {
         for (i=0; i<33; i++)
         {
@@ -167,7 +167,7 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
     // Check proof of work matches claimed amount
     if ( UintToArith256(hash) > bnTarget )
     {
-        if ( (height > 57732) && SAFECOIN_LOADINGBLOCKS == 57732 )   //sc
+        if ( (height > 57732) && SAFECOIN_LOADINGBLOCKS == 0 )   //sc
             //&&  )//186269, 182507&& safecoin_chainactive(height) != 0 && nonzpkeys > 0
         {
             for (i=31; i>=0; i--)
