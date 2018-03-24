@@ -654,7 +654,7 @@ int32_t safecoin_check_deposit(int32_t height,const CBlock& block) // verify abo
 {
     static uint256 array[64]; static int32_t numbanned,indallvouts;
     int32_t i,j,k,n,ht,baseid,txn_count,activation,num,opretlen,offset=1,errs=0,matched=0,SAFEheights[256],otherheights[256]; uint256 hash,txids[256]; char symbol[SAFECOIN_ASSETCHAIN_MAXLEN],base[SAFECOIN_ASSETCHAIN_MAXLEN]; uint16_t vouts[256]; int8_t baseids[256]; uint8_t *script,opcode,rmd160s[256*20]; uint64_t total,available,deposited,issued,withdrawn,approved,redeemed,checktoshis,seed; int64_t values[256],srcvalues[256]; struct pax_transaction *pax; struct safecoin_state *sp;
-    activation = 1;   //sc yeah we want this now
+    activation = 235300;   //sc yeah we want this now
     if ( *(int32_t *)&array[0] == 0 )
         numbanned = safecoin_bannedset(&indallvouts,array,(int32_t)(sizeof(array)/sizeof(*array)));
     memset(baseids,0xff,sizeof(baseids));
@@ -725,7 +725,7 @@ int32_t safecoin_check_deposit(int32_t height,const CBlock& block) // verify abo
     if ( ASSETCHAINS_SYMBOL[0] == 0 )
     {
         opcode = 'X';
-        if ( height >= 1 )  //passport activation, was 235300
+        if ( height >= 235300 )  //passport activation, was 235300
             return(-1);
         strcpy(symbol,(char *)"SAFE");
         if ( safecoin_isrealtime(&ht) == 0 || SAFECOIN_PASSPORT_INITDONE == 0 ) // init time already in DB
