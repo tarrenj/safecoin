@@ -102,7 +102,7 @@ public:
        assert(genesis.hashMerkleRoot == uint256S("0x0e8398ad8ba699fa41e1c56fe6112ca2530719c32b7e3d0cdb6610a458bd7e14"));
 
 
-       vSeeds.push_back(CDNSSeedData("144.202.48.90", "144.202.48.90")); // seed node
+       vSeeds.push_back(CDNSSeedData("107.191.36.192", "107.191.36.192")); // seed node
        vSeeds.push_back(CDNSSeedData("45.77.109.253", "45.77.109.253")); // seed node
        vSeeds.push_back(CDNSSeedData("safecoin.org", "dnsseed.safecoin.org")); // Safecoin
        vSeeds.push_back(CDNSSeedData("ipv6admin.com", "dnsseed.ipv6admin.com")); // Ipv6ipv6admin
@@ -131,7 +131,7 @@ public:
             boost::assign::map_list_of
             //  (0,uint256S("0x01")),
             (0, uint256S("0x081bb59e528c86d2f6ee88b68611c12b8e5ebc526f7c1d567a935b076974c042")),
-            //(1, uint256S("0x00b3b4e78ff769a8d7cc6f52f49f082fa0865f24bfa000ffe26421f15f04f6b9")),
+            //(57731, uint256S("0x00000070e091feaa8c995c68a31254afa8fb12dc15c28382d345f11f515f172f")),   //malicious komodo attack
             //(100000, uint256S("0x0f02eb1f3a4b89df9909fec81a4bd7d023e32e24e1f5262d9fc2cc36a715be6f")),
             1518178904,     // * UNIX timestamp of last checkpoint block
             0,         // * total number of transactions between genesis and last checkpoint

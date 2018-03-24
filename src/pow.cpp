@@ -167,7 +167,7 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
     // Check proof of work matches claimed amount
     if ( UintToArith256(hash) > bnTarget )
     {
-        if ( (height > 57732) && SAFECOIN_LOADINGBLOCKS == 0 )   //sc
+        if ( (height > 0) && SAFECOIN_LOADINGBLOCKS == 0 )   //sc  57732
             //&&  )//186269, 182507&& safecoin_chainactive(height) != 0 && nonzpkeys > 0
         {
             for (i=31; i>=0; i--)
