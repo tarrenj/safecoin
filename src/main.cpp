@@ -1505,7 +1505,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
             return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
         else if ( nHeight < 1051200 )  //this marks the 2 year mark from launch, when SafeCoin goes to POS and POW ends  //safecoin_moneysupply(nHeight) < MAX_MONEY )
             {
-              nSubsidy >>= (nHeight / 131400);      //sc Subsidy is cut in half every 525600 blocks, which will occur approximately every three months
+              nSubsidy >>= (nHeight / 131400);      //sc Subsidy is cut in half every 131400 blocks, which will occur approximately every three months
               return nSubsidy;
             }
         else return(1);       // After 2 years, a fixed reward of 1 SAFE per block
@@ -3315,7 +3315,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     int nHeight = pindexPrev->nHeight+1;
 
     // Check proof of work
-    if ( (nHeight > 57732 ) && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))     /// remove height restrictions (nHeight < 235300 || nHeight > 236000)
+    if ( (nHeight > 57731 ) && block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))     /// remove height restrictions (nHeight < 235300 || nHeight > 236000)
     {
         cout << block.nBits << " block.nBits vs. calc " << GetNextWorkRequired(pindexPrev, &block, consensusParams) << endl;
         return state.DoS(100, error("%s: incorrect proof of work", __func__),
