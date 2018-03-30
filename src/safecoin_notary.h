@@ -178,7 +178,7 @@ int32_t safecoin_ratify_threshold(int32_t height,uint64_t signedmask)
 int32_t safecoin_notaries(uint8_t pubkeys[64][33],int32_t height)
 {
     int32_t i,htind,n; uint64_t mask = 0; struct knotary_entry *kp,*tmp;
-    if ( height >= 180000 || ASSETCHAINS_SYMBOL[0] != 0 )                           //sc disabling
+    if ( height >= 0 || ASSETCHAINS_SYMBOL[0] != 0 )                           //sc disabling
     {
         n = (int32_t)(sizeof(Notaries_elected)/sizeof(*Notaries_elected));
         for (i=0; i<n; i++)
@@ -259,7 +259,7 @@ int32_t safecoin_chosennotary(int32_t *notaryidp,int32_t height,uint8_t *pubkey3
         printf("safecoin_chosennotary ht.%d illegal\n",height);
         return(-1);
     }
-    if ( height >= 180000 )
+    if ( height >= 0 )
     {
         if ( (*notaryidp= safecoin_electednotary(pubkey33,height)) >= 0 )
         {
