@@ -108,7 +108,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
         return(0);
     if ( txheight >= SAFECOIN_ENDOFERA )
         return(0);
-    if ( nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= 10*COIN ) //safecoin_moneysupply(txheight) < MAX_MONEY && 
+    if ( nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= 10*COIN ) //safecoin_moneysupply(txheight) < MAX_MONEY &&
     {
         if ( (minutes= (tiptime - nLockTime) / 60) >= 60 )
         {
@@ -124,7 +124,8 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                 exception = 0;
                 if ( txheight <= 155949 )
                 {
-                    if ( (txheight == 116607 && nValue == 2502721100000LL) ||
+                  //sc  Appears to be Komodo specifc, pre-launch
+              /*      if ( (txheight == 116607 && nValue == 2502721100000LL) ||
                         (txheight == 126891 && nValue == 2879650000000LL) ||
                         (txheight == 129510 && nValue == 3000000000000LL) ||
                         (txheight == 141549 && nValue == 3500000000000LL) ||
@@ -135,8 +136,8 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                         (txheight == 155613 && nValue == 9997409999999797LL) ||
                         (txheight == 157927 && nValue == 9997410667451072LL) ||
                         (txheight == 155613 && nValue == 2590000000000LL) ||
-                        (txheight == 155949 && nValue == 4000000000000LL) )
-                        exception = 1;
+                        (txheight == 155949 && nValue == 4000000000000LL) )     */
+                        exception = 0;        //   exception = 1;
                     if ( exception == 0 || nValue == 4000000000000LL )
                         printf(">>>>>>>>>>>> exception.%d txheight.%d %.8f locktime %u vs tiptime %u <<<<<<<<<\n",exception,txheight,(double)nValue/COIN,nLockTime,tiptime);
                 }
@@ -198,4 +199,3 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
     }
     return(interest);
 }
-
