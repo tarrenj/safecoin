@@ -1501,14 +1501,14 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
     if ( ASSETCHAINS_SYMBOL[0] == 0 )
     {
-        if ( nHeight == 1 )
-            return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
-        else if ( nHeight < 1051200 )  //this marks the 2 year mark from launch, when SafeCoin goes to POS and POW ends  //safecoin_moneysupply(nHeight) < MAX_MONEY )
-            {
-              nSubsidy >>= (nHeight / 131400);      //sc Subsidy is cut in half every 131400 blocks, which will occur approximately every three months
-              return nSubsidy;
-            }
-        else return(0);       // After 2 years, switch to POS (as per above)
+      if ( nHeight == 1 )
+                  return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
+              else if ( nHeight < 990720 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
+                  {
+                    nSubsidy >>= (nHeight / 123840);      //sc Subsidy is cut in half every 123840 blocks, which will occur approximately every 86 days
+                    return nSubsidy;
+                  }
+              else return(0);       // After 688 days, SAFE will be entirely POS prior to this.
     }
     else
     {
