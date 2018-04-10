@@ -613,7 +613,7 @@ int32_t safecoin_gateway_deposits(CMutableTransaction *txNew,char *base,int32_t 
 }
 
 const char *banned_txids[] =
-{
+{     
     "78cb4e21245c26b015b888b14c4f5096e18137d2741a6de9734d62b07014dfca", //233559
     "00697be658e05561febdee1aafe368b821ca33fbb89b7027365e3d77b5dfede5", //234172
     "e909465788b32047c472d73e882d79a92b0d550f90be008f76e1edaee6d742ea", //234187

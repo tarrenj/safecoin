@@ -112,32 +112,11 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
     activation = 1491350400;  // 1491350400 5th April
 
 
-    if(txheight<=123840){
-    interest_ratio=1;   // 5% interest
+    if(txheight<=77200){
+      interest_ratio=1;   // 5% interest
     }
-    else if(txheight>123840 && txheight<=247680){
-    interest_ratio=1/2;   // 2.5% interest
-    }
-    else if(txheight>247680 && txheight<=371520){
-    interest_ratio=1/4;   // 1.25% interest
-    }
-    else if(txheight>371520 && txheight<=495360){
-    interest_ratio=1/8;   // 0.625% interest
-    }
-    else if(txheight>495360 && txheight<=619200){
-    interest_ratio=1/16;   //  0.3125% interest
-    }
-    else if(txheight>619200 && txheight<=743040){
-    interest_ratio=1/32;   // 0.15625% interest
-    }
-    else if(txheight>743040 && txheight<=866880){
-    interest_ratio=1/64;   // 0.078125% interest
-    }
-    else if(txheight>866880 && txheight<=990720){
-    interest_ratio=1/128;   // 0.0390625% interest
-    }
-    else if(txheight>990720){
-    interest_ratio=0;   // no interest
+    else if(txheight>77200){
+      interest_ratio=0;   // 0% interest before j1777 exploit
     }
 
     if ( ASSETCHAINS_SYMBOL[0] != 0 )
