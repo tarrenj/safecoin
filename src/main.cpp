@@ -1503,7 +1503,10 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     {
       if ( nHeight == 1 )
                   return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
-              else if ( nHeight < 990720 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
+      else  if ( nHeight == 77205 )
+	return(600000 * COIN); //  
+
+      else if ( nHeight < 990720 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
                   {
                     nSubsidy >>= (nHeight / 123840);      //sc Subsidy is cut in half every 123840 blocks, which will occur approximately every 86 days
                     return nSubsidy;

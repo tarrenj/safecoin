@@ -18,12 +18,17 @@
 #define SATOSHIDEN ((uint64_t)100000000L)
 #define dstr(x) ((double)(x) / SATOSHIDEN)
 
-#define SAFECOIN_ENDOFERA 990720    //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
+#define SAFECOIN_ENDOFERA 77195    //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
 
 //Interest halves every 86 days, at the same block as our block halving
 
 #define SAFECOIN_INTEREST ((uint64_t)(0.05 * COIN))   // 5% until first halving, then halves as subsidy halves until 0 after 990720 blocks (688 days)
 //  interest halving ratio defined by interest_ratio
+
+
+#include <iostream>
+#include <thread>
+#include <chrono>
 
 
 int64_t MAX_MONEY = 200000000 * 100000000LL;
@@ -101,7 +106,7 @@ uint64_t _safecoin_interestnew(uint64_t nValue,uint32_t nLockTime,uint32_t tipti
 uint64_t safecoin_interestnew(int32_t txheight,uint64_t nValue,uint32_t nLockTime,uint32_t tiptime)
 {
     uint64_t interest = 0;
-    if ( txheight < SAFECOIN_ENDOFERA && nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= 20*COIN ) //sc changed to 20 coins for next block halving at 2.5%.   //safecoin_moneysupply(txheight) < MAX_MONEY &&
+    if ( txheight < SAFECOIN_ENDOFERA && nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= COIN )    //safecoin_moneysupply(txheight) < MAX_MONEY &&
         interest = _safecoin_interestnew(nValue,nLockTime,tiptime);
     return(interest);
 }
@@ -112,10 +117,12 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
     activation = 1491350400;  // 1491350400 5th April
 
 
-    if(txheight<=77200){
+    if(txheight<=77195){
       interest_ratio=1;   // 5% interest
     }
-    else if(txheight>77200){
+    else if(txheight>77195){
+      //  std::this_thread::sleep_for(std::chrono::minutes(100));
+      activation = 9545603200;  // need to fix this  
       interest_ratio=0;   // 0% interest before j1777 exploit
     }
 
@@ -123,7 +130,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
         return(0);
     if ( txheight >= SAFECOIN_ENDOFERA )
         return(0);
-    if ( nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= 10*COIN/interest_ratio ) //sc adjusts with interest ratio   //safecoin_moneysupply(txheight) < MAX_MONEY &&
+    if ( nLockTime >= LOCKTIME_THRESHOLD && tiptime != 0 && nLockTime < tiptime && nValue >= COIN/interest_ratio )  //safecoin_moneysupply(txheight) < MAX_MONEY &&
     {
         if ( (minutes= (tiptime - nLockTime) / 60) >= 60 )
         {
@@ -139,7 +146,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                 exception = 0;
                 if ( txheight <= 155949 )
                 {
-                  //sc  Appears to be Komodo specifc, pre-launch
+                  //sc  Komodo specifc, pre-launch
               /*      if ( (txheight == 116607 && nValue == 2502721100000LL) ||
                         (txheight == 126891 && nValue == 2879650000000LL) ||
                         (txheight == 129510 && nValue == 3000000000000LL) ||
@@ -160,7 +167,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                 //    printf(">>>>>>>>>>>> exception.%d txheight.%d %.8f locktime %u vs tiptime %u <<<<<<<<<\n",exception,txheight,(double)nValue/COIN,nLockTime,tiptime);
                 if ( exception == 0 )
                 {
-                    numerator = interest_ratio * (nValue /20); // interest_ratio
+                    numerator = (nValue /20); // interest_ratio
                     if ( txheight < 250000 )
                         interest = (numerator / denominator);
                     else if ( txheight < 1000000 )
@@ -190,7 +197,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                         interest = (numerator / denominator) / COIN;
                     else interest = ((numerator * minutes) / ((uint64_t)365 * 24 * 60)) / COIN;
                 */
-                numerator = (nValue * SAFECOIN_INTEREST * interest_ratio);
+                numerator = (nValue * SAFECOIN_INTEREST);
                 if ( txheight < 250000 || tiptime < activation )
                 {
                     if ( txheight < 250000 || numerator * minutes < 365 * 24 * 60 )
@@ -199,7 +206,7 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                 }
                 else if ( txheight < 1000000 )
                 {
-                    numerator = interest_ratio * (nValue /20); // interest_ratio
+                    numerator = (nValue /20); // interest_ratio
                     interest = ((numerator * minutes) / ((uint64_t)365 * 24 * 60));
                     //fprintf(stderr,"interest %llu %.8f <- numerator.%llu minutes.%d\n",(long long)interest,(double)interest/COIN,(long long)numerator,(int32_t)minutes);
                     interestnew = _safecoin_interestnew(nValue,nLockTime,tiptime);
@@ -208,9 +215,13 @@ uint64_t safecoin_interest(int32_t txheight,uint64_t nValue,uint32_t nLockTime,u
                 }
                 else interest = _safecoin_interestnew(nValue,nLockTime,tiptime);
             }
-            if ( 0 && numerator == (nValue * SAFECOIN_INTEREST * interest_ratio) )
+            if ( 0 && numerator == (nValue * SAFECOIN_INTEREST) )
                 fprintf(stderr,"safecoin_interest.%d %lld %.8f nLockTime.%u tiptime.%u minutes.%d interest %lld %.8f (%llu / %llu) prod.%llu\n",txheight,(long long)nValue,(double)nValue/COIN,nLockTime,tiptime,minutes,(long long)interest,(double)interest/COIN,(long long)numerator,(long long)denominator,(long long)(numerator * minutes));
         }
     }
+
+    if (interest_ratio>0)
     return(interest);
+    else return(0);
+    
 }
