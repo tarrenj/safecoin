@@ -1400,4 +1400,5 @@ MEMPOOL: banned tx.49 being used at ht.77185 vout.46
 MEMPOOL: banned tx.52 being used at ht.77185 vout.1
 MEMPOOL: banned tx.50 being used at ht.77185 vout.0
 MEMPOOL: banned tx.49 being used at ht.77185 vout.46
-MEMPOOL: banned tx.52 being used at 
+MEMPOOL: banned tx.52 being used at never accept failure.2
+never accept failure.2
