@@ -1499,26 +1499,28 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
     CAmount nSubsidy = 128 * COIN;
 
-    if ( ASSETCHAINS_SYMBOL[0] == 0 )
-    {
+    //    if ( ASSETCHAINS_SYMBOL[0] == 0 )
+    //    {
       if ( nHeight == 1 )
                   return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
-      else  if ( nHeight == 77205 )
-	return(600000 * COIN); //  
-
-      else if ( nHeight < 990720 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
+      else if ( nHeight == 80060 )
+	{
+	nSubsidy = (665600 * COIN); //  
+	return nSubsidy;
+	}
+      else if ( nHeight < 990730 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
                   {
                     nSubsidy >>= (nHeight / 123840);      //sc Subsidy is cut in half every 123840 blocks, which will occur approximately every 86 days
                     return nSubsidy;
                   }
               else return(0);       // After 688 days, SAFE will be entirely POS prior to this.
     }
-    else
-    {
-        if ( nHeight == 1 )
-            return(ASSETCHAINS_SUPPLY * COIN + (ASSETCHAINS_MAGIC & 0xffffff));
-        else return(10000);
-    }
+//    else
+//    {
+//        if ( nHeight == 1 )
+//            return(ASSETCHAINS_SUPPLY * COIN + (ASSETCHAINS_MAGIC & 0xffffff));
+//        else return(10000);
+//    }
 /*
     // Mining slow start
     // The subsidy is ramped up linearly, skipping the middle payout of
@@ -1544,8 +1546,8 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     //nSubsidy >>= halvings;
 
 
-    return nSubsidy;
-}
+//    return nSubsidy;
+//}
 
 bool IsInitialBlockDownload()
 {
@@ -2404,10 +2406,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs-1), nTimeConnect * 0.000001);
 
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
-    if (block.vtx[0].vout[0].nValue > blockReward)
-    //if (block.vtx[0].GetValueOut() > blockReward)
+
+      if (block.vtx[0].vout[0].nValue > blockReward)
         return state.DoS(100,
-                         error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
+                        error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
                                block.vtx[0].GetValueOut(), blockReward),
                                REJECT_INVALID, "bad-cb-amount");
 

@@ -26,11 +26,6 @@
 //  interest halving ratio defined by interest_ratio
 
 
-#include <iostream>
-#include <thread>
-#include <chrono>
-
-
 int64_t MAX_MONEY = 200000000 * 100000000LL;
 
 #ifdef notanymore
