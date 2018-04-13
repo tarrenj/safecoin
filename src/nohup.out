@@ -1309,4 +1309,95 @@ f4a6b94f8e0f043caaf1880322128b3133a6d6e25bf54bcb6999e1a4f24 hash vs 000000e98a00
 >>>>>>>>>>>> exception.0 txheight.65207 217295.62496770 locktime 1522380113 vs tiptime 1522388634 <<<<<<<<<
 >>>>>>>>>>>> exception.0 txheight.65207 217295.62496770 locktime 1522380113 vs tiptime 1522388634 <<<<<<<<<
 >>>>>>>>>>>> exception.0 txheight.62644 38835.87158567 locktime 1522226318 vs tiptime 1522401922 <<<<<<<<<
->>>>>>>>>>>> exception.0 txheight.62644 38835.87158567 locktime 1522226318 vs tiptime 1522
+>>>>>>>>>>>> exception.0 txheight.62644 38835.87158567 locktime 1522226318 vs tiptime 1522401922 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.65335 207297.34062647 locktime 1522388635 vs tiptime 1522443697 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.65335 207297.34062647 locktime 1522388635 vs tiptime 1522443697 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4632 500000.00000000 locktime 1518503786 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4632 500000.00000000 locktime 1518503786 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4653 500000.00000000 locktime 1518505314 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4653 500000.00000000 locktime 1518505314 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.52402 499499.99995000 locktime 1521394139 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.52402 499499.99995000 locktime 1521394139 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.66248 206814.26038795 locktime 1522443680 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.66248 206814.26038795 locktime 1522443680 vs tiptime 1522519564 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4633 500000.00000000 locktime 1518503867 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4633 500000.00000000 locktime 1518503867 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4640 500000.00000000 locktime 1518504552 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4640 500000.00000000 locktime 1518504552 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4682 500000.00000000 locktime 1518507032 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4682 500000.00000000 locktime 1518507032 vs tiptime 1522519680 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4669 500000.00000000 locktime 1518506375 vs tiptime 1522519793 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.4669 500000.00000000 locktime 1518506375 vs tiptime 1522519793 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67555 503093.17663824 locktime 1522521492 vs tiptime 1522525337 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67555 503093.17663824 locktime 1522521492 vs tiptime 1522525337 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67520 503169.65010160 locktime 1522519565 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67520 503169.65010160 locktime 1522519565 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67530 503145.12684012 locktime 1522520006 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67530 503145.12684012 locktime 1522520006 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67555 503093.69979972 locktime 1522521492 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67555 503093.69979972 locktime 1522521492 vs tiptime 1522526085 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67625 503152.99549589 locktime 1522526086 vs tiptime 1522531382 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67625 503152.99549589 locktime 1522526086 vs tiptime 1522531382 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67729 205194.96569050 locktime 1522532291 vs tiptime 1522550635 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67729 205194.96569050 locktime 1522532291 vs tiptime 1522550635 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67333 27442.39251687 locktime 1522508805 vs tiptime 1522588131 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67333 27442.39251687 locktime 1522508805 vs tiptime 1522588131 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.65561 45421.86979523 locktime 1522402299 vs tiptime 1522627453 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.65561 45421.86979523 locktime 1522402299 vs tiptime 1522627453 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.68024 204699.76757526 locktime 1522550633 vs tiptime 1522636423 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.68024 204699.76757526 locktime 1522550633 vs tiptime 1522636423 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.68652 35533.98069169 locktime 1522588132 vs tiptime 1522757479 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.68652 35533.98069169 locktime 1522588132 vs tiptime 1522757479 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67729 499527.97345976 locktime 1522532291 vs tiptime 1522887937 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67729 499527.97345976 locktime 1522532291 vs tiptime 1522887937 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67727 502361.16722396 locktime 1522532120 vs tiptime 1522894406 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67727 502361.16722396 locktime 1522532120 vs tiptime 1522894406 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67718 502551.76043460 locktime 1522531672 vs tiptime 1522894503 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67718 502551.76043460 locktime 1522531672 vs tiptime 1522894503 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67718 502866.69701628 locktime 1522531672 vs tiptime 1522895601 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67718 502866.69701628 locktime 1522531672 vs tiptime 1522895601 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67711 503034.51325238 locktime 1522531272 vs tiptime 1522897312 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.67711 503034.51325238 locktime 1522531272 vs tiptime 1522897312 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.69319 51279.89184386 locktime 1522627454 vs tiptime 1522906756 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.69319 51279.89184386 locktime 1522627454 vs tiptime 1522906756 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.69455 204510.76974766 locktime 1522588132 vs tiptime 1522940940 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.69455 204510.76974766 locktime 1522588132 vs tiptime 1522940940 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.64770 26267.07229728 locktime 1522354243 vs tiptime 1522961609 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.64770 26267.07229728 locktime 1522354243 vs tiptime 1522961609 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74518 202623.97822628 locktime 1522940820 vs tiptime 1522985654 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74518 202623.97822628 locktime 1522940820 vs tiptime 1522985654 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.75280 182637.14333595 locktime 1522985387 vs tiptime 1522993500 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.75280 182637.14333595 locktime 1522985387 vs tiptime 1522993500 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74803 56024.00000000 locktime 1522957342 vs tiptime 1523036692 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74803 56024.00000000 locktime 1522957342 vs tiptime 1523036692 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74872 26812.66535504 locktime 1522961601 vs tiptime 1523042918 <<<<<<<<<
+>>>>>>>>>>>> exception.0 txheight.74872 26812.66535504 locktime 1522961601 vs tiptime 1523042918 <<<<<<<<<
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.52 being used at ht.77185 vout.1
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.52 being used at ht.77185 vout.1
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.52 being used at ht.77185 vout.1
+MEMPOOL: banned tx.50 being used at ht.77185 vout.0
+MEMPOOL: banned tx.49 being used at ht.77185 vout.46
+MEMPOOL: banned tx.52 being used at 

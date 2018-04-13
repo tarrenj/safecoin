@@ -2407,11 +2407,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
 
-    //  if (block.vtx[0].vout[0].nValue > blockReward)
-    //    return state.DoS(100,
-    //                    error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
-    //                           block.vtx[0].GetValueOut(), blockReward),
-    //                           REJECT_INVALID, "bad-cb-amount");
+      if (block.vtx[0].vout[0].nValue > blockReward)
+        return state.DoS(100,
+                        error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
+                               block.vtx[0].GetValueOut(), blockReward),
+                               REJECT_INVALID, "bad-cb-amount");
 
     if (!control.Wait())
         return state.DoS(100, false);
