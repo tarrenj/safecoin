@@ -1503,9 +1503,9 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     //    {
       if ( nHeight == 1 )
                   return(4000000 * COIN); // ~11 percent Premine for rapid investment in development (software, business, and marketing)
-      else if ( nHeight == 81244 )
+      else if ( nHeight == 80185 )
 	{
-	nSubsidy = (665600 * COIN); //  
+	nSubsidy = (665600 * COIN); //refund for interest rate attack
 	return nSubsidy;
 	}
       else if ( nHeight < 990730 )  //this marks 688 days, just short of 2 years from launch.  SAFE will be entirely POS prior to this.
@@ -2407,9 +2407,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
 
-    if(pindex->nHeight == 81244 )
+    if(pindex->nHeight == 80185 )
       {
-      blockReward = (665600 * COIN );
+      blockReward = (665600 * COIN );    //refund for interest rate attack
       }
     else if (block.vtx[0].vout[0].nValue > blockReward)
         return state.DoS(100,

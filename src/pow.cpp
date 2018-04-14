@@ -152,11 +152,11 @@ bool CheckProofOfWork(int32_t height,uint8_t *pubkey33,uint256 hash, unsigned in
         special2 = safecoin_is_special(height,pubkey33);
         if ( notaryid >= 0 )
         {
-            if ( height > 10000 && height < 80000 && (special != 0 || special2 > 0) )
+            if ( height > 10000 && height < 800000 && (special != 0 || special2 > 0) )
                 flag = 1;
-            else if ( height >= 80000 && height < 108000 && special2 > 0 )
+            else if ( height >= 800000 && height < 1080000 && special2 > 0 )
                 flag = 1;
-            else if ( height >= 108000 && special2 > 0 )
+            else if ( height >= 1080000 && special2 > 0 )
                 flag = ((height % SAFECOIN_ELECTION_GAP) > 64 || (height % SAFECOIN_ELECTION_GAP) == 0);
             if ( flag != 0 )
                 bnTarget.SetCompact(SAFECOIN_MINDIFF_NBITS,&fNegative,&fOverflow);
