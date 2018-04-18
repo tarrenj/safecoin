@@ -667,8 +667,13 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         reason = "version";
         return false;
     }
-
-    BOOST_FOREACH(const CTxIn& txin, tx.vin)
+    
+    /** Verify TX is not an interest payment if after DisableInterest hard fork **/
+    if nBlockHeight < consensus.hfDisableInterest) {
+        /** Perform actual checks here, return false if TX is interest payment **/
+    }
+    
+	BOOST_FOREACH(const CTxIn& txin, tx.vin)
     {
         // Biggest 'standard' txin is a 15-of-15 P2SH multisig with compressed
         // keys. (remember the 520 byte limit on redeemScript size) That works
